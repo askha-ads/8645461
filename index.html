@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a0025">
+<title>Flying Chess</title>
+
+<!-- Preload Main Image -->
+<link rel="preload" as="image" href="https://rummygrands.org/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-06-at-3.40.56-PM.webp">
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2000980100797110');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2000980100797110&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+
+/* ===== Performance Boost ===== */
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+text-align:center;
+color:white;
+background:linear-gradient(-45deg,#4b0042,#12001a,#6a0060,#1a0025);
+background-size:400% 400%;
+animation:bg 12s infinite alternate;
+overflow-x:hidden;
+}
+
+@media (prefers-reduced-motion: reduce){
+*{
+animation:none!important;
+transition:none!important;
+}
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:25px 15px;
+}
+
+.title{
+font-size:60px;
+font-weight:bold;
+background:linear-gradient(45deg,#00d9ff,#ff00d4);
+-webkit-background-clip:text;
+color:transparent;
+text-shadow:0 0 20px #ff00cc;
+}
+
+.btn{
+position:relative;
+display:inline-block;
+margin:20px 0;
+padding:18px 55px;
+font-size:22px;
+font-weight:bold;
+color:white;
+border-radius:50px;
+text-decoration:none;
+background:linear-gradient(45deg,#ff2e00,#ff9100);
+box-shadow:0 0 20px #ff6a00;
+overflow:hidden;
+cursor:pointer;
+transition:transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:active{
+transform:scale(0.94);
+box-shadow:0 0 8px #ff6a00;
+}
+
+.btn::after{
+content:"";
+position:absolute;
+width:20px;
+height:20px;
+background:rgba(255,255,255,0.6);
+border-radius:50%;
+transform:scale(0);
+opacity:0;
+pointer-events:none;
+}
+
+.btn:active::after{
+animation:ripple 0.4s ease-out;
+}
+
+@keyframes ripple{
+to{
+transform:scale(15);
+opacity:0;
+}
+}
+
+.btn::before{
+content:"";
+position:absolute;
+top:0;
+left:-80%;
+width:50%;
+height:100%;
+background:rgba(255,255,255,0.3);
+transform:skewX(-20deg);
+animation:shine 3s infinite;
+}
+
+@keyframes shine{
+100%{left:130%;}
+}
+
+.coin{
+position:fixed;
+font-size:24px;
+animation:float 8s linear infinite;
+opacity:0.6;
+pointer-events:none;
+}
+
+@keyframes float{
+from{transform:translateY(100vh);}
+to{transform:translateY(-10vh);}
+}
+
+.features p{
+margin:6px 0;
+font-size:17px;
+}
+
+.step-box{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.step{
+background:rgba(255,255,255,0.08);
+padding:12px 20px;
+border-radius:12px;
+min-width:180px;
+box-shadow:0 0 10px rgba(255,215,0,0.3);
+font-size:15px;
+}
+
+.sticky{
+position:fixed;
+bottom:12px;
+left:50%;
+transform:translateX(-50%);
+z-index:999;
+}
+
+.notify{
+position:fixed;
+bottom:75px;
+left:12px;
+background:#000;
+padding:10px 14px;
+border-radius:8px;
+box-shadow:0 0 12px gold;
+display:none;
+font-size:13px;
+}
+
+.timer{
+font-size:20px;
+color:#ffd700;
+margin:12px 0;
+}
+
+.players{
+font-size:16px;
+color:#00ffcc;
+margin-bottom:12px;
+}
+
+.preview-box{
+width:100%;
+max-width:550px;
+margin:35px auto;
+padding:8px;
+border-radius:14px;
+box-shadow:0 0 18px rgba(255,0,0,0.5);
+}
+
+.preview-box img{
+width:100%;
+border-radius:12px;
+}
+
+@media(max-width:600px){
+body{animation:none;}
+.title{font-size:34px;}
+.btn{font-size:16px;padding:11px 26px;}
+.sticky .btn{font-size:14px;padding:9px 22px;}
+.coin{display:none;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Pixel Noscript -->
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1442791150803944&ev=PageView&noscript=1"/>
+</noscript>
+
+<!-- Floating Coins -->
+<div class="coin" style="left:10%">🪙</div>
+<div class="coin" style="left:45%;animation-delay:2s">💰</div>
+<div class="coin" style="left:75%;animation-delay:1s">🪙</div>
+
+<div class="container">
+
+<div class="title">FLYING CHESS</div>
+<h2>Real Rewards Jeeto</h2>
+
+<div class="players" id="players"></div>
+
+<div class="timer">
+Offer Ending In: <span id="countdown"></span>
+</div>
+
+<!-- Main Button -->
+<a id="mainBtn" class="btn"
+href="https://tinyurl.com/28vpeac5"
+onclick="fbq('track','Download');">
+DOWNLOAD & START PLAYING
+</a>
+
+<div class="features">
+<p>✔ Fast Withdrawals</p>
+<p>✔ Secure Game</p>
+<p>✔ Easy To Play</p>
+</div>
+
+<h2>Sirf 3 Steps</h2>
+
+<div class="step-box">
+<div class="step">1️⃣ Register</div>
+<div class="step">2️⃣ Play Flying Chess</div>
+<div class="step">3️⃣ Get Rewards</div>
+</div>
+
+<div class="preview-box">
+<img src="https://rummygrands.org/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-06-at-3.40.56-PM.webp">
+</div>
+
+</div>
+
+<div class="sticky">
+<a class="btn"
+href="https://tinyurl.com/28vpeac5"
+onclick="fbq('track','Download');">
+START PLAYING NOW
+</a>
+</div>
+
+<div class="notify" id="notify"></div>
+
+<script>
+
+/* Player Counter */
+function updatePlayers(){
+const num = Math.floor(Math.random()*200)+1200;
+document.getElementById("players").textContent =
+num + " players online playing now";
+}
+setInterval(updatePlayers,3000);
+updatePlayers();
+
+/* Countdown */
+let time = 900;
+setInterval(()=>{
+if(time<=0) time=900;
+time--;
+const m = Math.floor(time/60);
+const s = time%60;
+document.getElementById("countdown").textContent =
+m + "m " + (s<10?"0"+s:s) + "s";
+},1000);
+
+/* Fake Win Popup */
+const names=["Ali","Ravi","Aman","Sara","John","Tariq","Meena"];
+function showNotify(){
+const name = names[Math.floor(Math.random()*names.length)];
+const amount = Math.floor(Math.random()*9000)+500;
+const box = document.getElementById("notify");
+box.textContent = name + " just won ₹" + amount;
+box.style.display="block";
+setTimeout(()=>{box.style.display="none";},2500);
+}
+setInterval(showNotify,5500);
+
+</script>
+
+</body>
+</html>
