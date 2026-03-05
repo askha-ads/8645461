@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +6,6 @@
 <meta name="theme-color" content="#1a0025">
 <title>Flying Chess</title>
 
-<!-- Preload Main Image -->
 <link rel="preload" as="image" href="https://rummygrands.org/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-06-at-3.40.56-PM.webp">
 
 <!-- Meta Pixel Code -->
@@ -20,21 +18,19 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+
 fbq('init', '916297737423011');
 fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=916297737423011&ev=PageView&noscript=1"
-/></noscript>
+
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=916297737423011&ev=PageView&noscript=1"/>
+</noscript>
 <!-- End Meta Pixel Code -->
 
 <style>
-
-/* ===== Performance Boost ===== */
-*{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
 body{
 margin:0;
@@ -45,13 +41,6 @@ background:linear-gradient(-45deg,#4b0042,#12001a,#6a0060,#1a0025);
 background-size:400% 400%;
 animation:bg 12s infinite alternate;
 overflow-x:hidden;
-}
-
-@media (prefers-reduced-motion: reduce){
-*{
-animation:none!important;
-transition:none!important;
-}
 }
 
 @keyframes bg{
@@ -94,45 +83,6 @@ transition:transform 0.15s ease, box-shadow 0.15s ease;
 .btn:active{
 transform:scale(0.94);
 box-shadow:0 0 8px #ff6a00;
-}
-
-.btn::after{
-content:"";
-position:absolute;
-width:20px;
-height:20px;
-background:rgba(255,255,255,0.6);
-border-radius:50%;
-transform:scale(0);
-opacity:0;
-pointer-events:none;
-}
-
-.btn:active::after{
-animation:ripple 0.4s ease-out;
-}
-
-@keyframes ripple{
-to{
-transform:scale(15);
-opacity:0;
-}
-}
-
-.btn::before{
-content:"";
-position:absolute;
-top:0;
-left:-80%;
-width:50%;
-height:100%;
-background:rgba(255,255,255,0.3);
-transform:skewX(-20deg);
-animation:shine 3s infinite;
-}
-
-@keyframes shine{
-100%{left:130%;}
 }
 
 .coin{
@@ -222,19 +172,11 @@ body{animation:none;}
 .sticky .btn{font-size:14px;padding:9px 22px;}
 .coin{display:none;}
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- Pixel Noscript -->
-<noscript>
-<img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1442791150803944&ev=PageView&noscript=1"/>
-</noscript>
-
-<!-- Floating Coins -->
 <div class="coin" style="left:10%">🪙</div>
 <div class="coin" style="left:45%;animation-delay:2s">💰</div>
 <div class="coin" style="left:75%;animation-delay:1s">🪙</div>
@@ -250,10 +192,10 @@ src="https://www.facebook.com/tr?id=1442791150803944&ev=PageView&noscript=1"/>
 Offer Ending In: <span id="countdown"></span>
 </div>
 
-<!-- Main Button -->
-<a id="mainBtn" class="btn"
+<!-- MAIN BUTTON -->
+<a class="btn"
 href="https://tinyurl.com/28vpeac5"
-onclick="fbq('track','Download');">
+onclick="trackPurchase(142.52);">
 DOWNLOAD & START PLAYING
 </a>
 
@@ -277,10 +219,11 @@ DOWNLOAD & START PLAYING
 
 </div>
 
-<div 5class="sticky">
+<!-- STICKY BUTTON -->
+<div class="sticky">
 <a class="btn"
 href="https://tinyurl.com/28vpeac5"
-onclick="fbq('track','Download');">
+onclick="trackPurchase(142.52);">
 START PLAYING NOW
 </a>
 </div>
@@ -288,6 +231,14 @@ START PLAYING NOW
 <div class="notify" id="notify"></div>
 
 <script>
+
+/* PURCHASE TRACKING */
+function trackPurchase(value){
+  fbq('track', 'Purchase', {
+    value: value,
+    currency: 'PKR'
+  });
+}
 
 /* Player Counter */
 function updatePlayers(){
